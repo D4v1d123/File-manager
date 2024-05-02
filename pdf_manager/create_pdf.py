@@ -7,10 +7,12 @@ import pdfkit
 def create_pdf(html_path, output_path, css_path=""):
     html_file_name = html_path.split("/")[-1]
     template_path = html_path.replace(html_file_name, "")
-    working_directory = os.getcwd()
-    values = {"name" : "David Guerrero",
+    working_directory = set_working_directory()
+    values = {
+              "name" : "David Guerrero",
               "position" : "Senior programmer",
-              "img_path" : f"{working_directory}/template/img/python logo.png"}
+              "img_path" : f"{working_directory}/template/img/python logo.png"
+    }
     options = {
         "enable-local-file-access" : "",  # Allow wkhtmltopdf access to local host 
         # files during HTML to PDF conversion.
@@ -32,9 +34,19 @@ def create_pdf(html_path, output_path, css_path=""):
     pdfkit.from_string(html, output_path, css=css_path, options=options, configuration=config)  # Generate PDF. 
     print("PDF created successfully.")
     
+def set_working_directory():
+    working_directory = os.getcwd()
+    folder = working_directory.split("/")[-1] 
     
-html_path = "template/pdf_content.html"
-css_path = "template/style.css"
-output_path = "pdf/work_progress.pdf"
+    if folder == "Files_manager": 
+        return f"{working_directory}/pdf_manager" 
+    else:
+        return working_directory.replace(folder, "pdf_manager")
+
+
+working_directory = set_working_directory()
+html_path = f"{working_directory}/template/pdf_content.html"
+css_path = f"{working_directory}/template/style.css"
+output_path = f"{working_directory}/pdf/work_progress.pdf"
 
 create_pdf(html_path, output_path, css_path)
