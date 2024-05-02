@@ -6,7 +6,7 @@ from docx.shared import Mm
 from docxtpl import DocxTemplate, InlineImage
 
 def readDataSpreadsheet(path, sheet):
-    data_frame = pandas.read_excel(path, sheet)  # Extract data from the spreadsheet 
+    data_frame = pandas.read_excel(path, sheet)  # Extract data from the spreadsheet
     # to a data frame.
 
     return data_frame
