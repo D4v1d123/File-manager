@@ -1,6 +1,6 @@
 import os
 
-def set_working_directory():
+def set_working_directory ():
     working_directory = os.getcwd()
     folder = working_directory.split("/")[-1] 
     
